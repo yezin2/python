@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-3.6.0.js"></script>
+<script type="text/javascript">
+		function fn_setTable(e_id, kor, eng, math){
+			$("#e_id").val(e_id);
+			$("#kor").val(kor);
+			$("#eng").val(eng);
+			$("#math").val(math);
+		}
+		function fn_add(){
+			var param = {
+		            'e_id'  :$("#e_id").val(), 
+		            'kor'	:$("#kor").val(), 
+		            'eng' 	:$("#eng").val(),
+		            'math'  :$("#math").val()
+		        }
+			$.ajax({
+		        type: 'POST',
+		        url: 'add.ajax',
+		        data: JSON.stringify(param),
+		        dataType : 'JSON',
+		        contentType: "application/json",
+		        success: function(data){
+		        	if(data.msg == 'ok'){
+		        		alert('정상추가');
+		        		location.reload();
+		        	}else{
+		        		alert('실행도중 에러');
+		        	}
+		        },
+		        error: function(request, status, error){
+		            alert('ajax 통신 실패')
+		        }
+		    })
+		}
+		
+		function fn_upd(){
+			var param = {
+		            'e_id'  :$("#e_id").val(), 
+		            'kor'	:$("#kor").val(), 
+		            'eng' 	:$("#eng").val(),
+		            'math'  :$("#math").val()
+		        }
+			$.ajax({
+		        type: 'POST',
+		        url: 'upd.ajax',
+		        data: JSON.stringify(param),
+		        dataType : 'JSON',
+		        contentType: "application/json",
+		        success: function(data){
+		        	if(data.msg == 'ok'){
+		        		alert('정상수정');
+		        		location.reload();
+		        	}else{
+		        		alert('실행도중 에러');
+		        	}
+		        },
+		        error: function(request, status, error){
+		            alert('ajax 통신 실패')
+		        }
+		    })
+		}
+		
+		function fn_del(){
+			var param = {
+		            'e_id'  :$("#e_id").val(), 
+		            'kor'	:$("#kor").val(), 
+		            'eng' 	:$("#eng").val(),
+		            'math'  :$("#math").val()
+		        }
+			$.ajax({
+		        type: 'POST',
+		        url: 'del.ajax',
+		        data: JSON.stringify(param),
+		        dataType : 'JSON',
+		        contentType: "application/json",
+		        success: function(data){
+		        	if(data.msg == 'ok'){
+		        		alert('정상삭제');
+		        		location.reload();
+		        	}else{
+		        		alert('실행도중 에러');
+		        	}
+		        },
+		        error: function(request, status, error){
+		            alert('ajax 통신 실패')
+		        }
+		    })
+		}
+</script>
+</head>
+<body>
+	<table border="1" id="list">
+		<tr>
+			<th>ID</th>
+			<th>Korean</th>
+			<th>English</th>
+			<th>Math</th>
+		</tr>
+		{%for emp in mylist %}
+		<tr>
+			<td><a href="javascript:fn_setTable('{{emp.e_id}}','{{emp.kor}}','{{emp.eng}}','{{emp.math}}')">{{emp.e_id}}</a></td>
+			<td>{{emp.kor}}</td>
+  			<td>{{emp.eng}}</td>
+  			<td>{{emp.math}}</td>
+  		</tr>
+		{% endfor %}
+	</table>
+	<table border="1" id="detail">
+		<tr>
+			<th>ID</th>
+			<td colspan="2"><input type="text" id="e_id"></td>
+		</tr>
+		<tr>
+			<th>Korean</th>
+			<td colspan="2"><input type="text" id="kor"></td>
+  		</tr>
+  		<tr>
+			<th>English</th>
+  			<td colspan="2"><input type="text" id="eng"></td>
+  		</tr>
+  		<tr>
+			<th>Math</th>
+  			<td colspan="2"><input type="text" id="math"></td>
+  		</tr>
+  		<tr>
+  			<td><button onclick="fn_add()">추가</button></td>
+  			<td><button onclick="fn_upd()">수정</button></td>
+  			<td><button onclick="fn_del()">삭제</button></td>
+  		</tr>
+	</table>
+</body>
+</html>

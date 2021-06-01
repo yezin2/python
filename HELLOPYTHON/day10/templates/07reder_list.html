@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="jquery-3.6.0.js"></script>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	hello template
+	<hr/>
+	{%for item in mylist%}
+	{{item}}<br/>
+	{% endfor %}
+	
+	{%for obj in objlist%}
+	{{obj.e_id}} {{obj.e_name}} {{obj.birth}}<br/>
+	{% endfor %}
+</body>
+</html>
